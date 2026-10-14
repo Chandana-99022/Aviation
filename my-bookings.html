@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings - Aviation</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">AVIATION</div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- Hero -->
+    <section class="bookings-hero">
+        <div class="hero-content">
+            <h1>My Bookings</h1>
+            <p>View and manage your flight bookings.</p>
+        </div>
+    </section>
+
+
+    <!-- Bookings Section -->
+    <section class="bookings-section">
+
+        <div class="section-title">
+            <h2>Your Bookings</h2>
+            <p>Manage your upcoming and previous flight bookings.</p>
+        </div>
+
+        <div class="booking-list" id="bookingList">
+
+            <!-- Booking Card 1 -->
+            <div class="my-booking-card" data-booking-id="AV1001">
+
+                <div class="booking-top">
+                    <div>
+                        <h3>Booking ID: AV1001</h3>
+                        <span class="booking-status">Confirmed</span>
+                    </div>
+
+                    <p class="booking-price">₹4,999</p>
+                </div>
+
+
+                <div class="booking-route">
+                    <div>
+                        <small>FROM</small>
+                        <h2>BLR</h2>
+                        <p>Bengaluru</p>
+                    </div>
+
+                    <div class="plane-icon">✈️</div>
+
+                    <div>
+                        <small>TO</small>
+                        <h2>DEL</h2>
+                        <p>Delhi</p>
+                    </div>
+                </div>
+
+
+                <div class="booking-details">
+
+                    <div>
+                        <strong>Passenger</strong>
+                        <p>Chandana</p>
+                    </div>
+
+                    <div>
+                        <strong>Date</strong>
+                        <p>15 Oct 2026</p>
+                    </div>
+
+                    <div>
+                        <strong>Passengers</strong>
+                        <p>1</p>
+                    </div>
+
+                    <div>
+                        <strong>Class</strong>
+                        <p>Economy</p>
+                    </div>
+
+                </div>
+
+
+                <div class="booking-actions">
+                    <button onclick="viewBooking('AV1001')">
+                        View Details
+                    </button>
+
+                    <button class="cancel-btn"
+                            onclick="cancelBooking('AV1001')">
+                        Cancel Booking
+                    </button>
+                </div>
+
+            </div>
+
+
+            <!-- Booking Card 2 -->
+            <div class="my-booking-card" data-booking-id="AV1002">
+
+                <div class="booking-top">
+                    <div>
+                        <h3>Booking ID: AV1002</h3>
+                        <span class="completed-status">Completed</span>
+                    </div>
+
+                    <p class="booking-price">₹3,499</p>
+                </div>
+
+
+                <div class="booking-route">
+                    <div>
+                        <small>FROM</small>
+                        <h2>BLR</h2>
+                        <p>Bengaluru</p>
+                    </div>
+
+                    <div class="plane-icon">✈️</div>
+
+                    <div>
+                        <small>TO</small>
+                        <h2>BOM</h2>
+                        <p>Mumbai</p>
+                    </div>
+                </div>
+
+
+                <div class="booking-details">
+
+                    <div>
+                        <strong>Passenger</strong>
+                        <p>Chandana</p>
+                    </div>
+
+                    <div>
+                        <strong>Date</strong>
+                        <p>20 Sep 2026</p>
+                    </div>
+
+                    <div>
+                        <strong>Passengers</strong>
+                        <p>1</p>
+                    </div>
+
+                    <div>
+                        <strong>Class</strong>
+                        <p>Economy</p>
+                    </div>
+
+                </div>
+
+
+                <div class="booking-actions">
+                    <button onclick="viewBooking('AV1002')">
+                        View Details
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- No Booking Message -->
+        <div class="no-bookings" id="noBookings" style="display:none;">
+            <h2>No Bookings Found</h2>
+            <p>You don't have any flight bookings yet.</p>
+            <a href="flights.html">Book a Flight</a>
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+    <section class="cta">
+        <h2>Ready For Another Journey?</h2>
+        <p>Explore our flights and discover your next destination.</p>
+        <a href="flights.html">Search Flights</a>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Aviation. All Rights Reserved.</p>
+    </footer>
+
+
+    <!-- JavaScript -->
+   <script>
+    function getBookings() {
+        return JSON.parse(
+            localStorage.getItem("aviationBookings") || "[]"
+        );
+    }
+
+    function getCancelledBookings() {
+        return JSON.parse(
+            localStorage.getItem("aviationCancelledBookings") || "[]"
+        );
+    }
+
+    function viewBooking(bookingId) {
+        const booking = getBookings().find(
+            item => item.bookingId === bookingId
+        );
+
+        if (!booking) {
+            alert("Booking details not found.");
+            return;
+        }
+
+        alert(
+            "Booking ID: " + booking.bookingId +
+            "\nPassenger: " + booking.passengerName +
+            "\nEmail: " + booking.email +
+            "\nFrom: " + booking.fromCity +
+            "\nTo: " + booking.toCity +
+            "\nTravel Date: " + booking.travelDate +
+            "\nPassengers: " + booking.passengers +
+            "\nClass: " + booking.travelClass +
+            "\nStatus: " + booking.status
+        );
+    }
+
+    function cancelBooking(bookingId) {
+        const confirmed = confirm(
+            "Are you sure you want to cancel booking " +
+            bookingId + "?"
+        );
+
+        if (!confirmed) return;
+
+        let bookings = getBookings();
+
+        const booking = bookings.find(
+            item => item.bookingId === bookingId
+        );
+
+        if (!booking) {
+            alert("Booking not found.");
+            return;
+        }
+
+        // Remove the selected booking from saved bookings
+        bookings = bookings.filter(
+            item => item.bookingId !== bookingId
+        );
+
+        localStorage.setItem(
+            "aviationBookings",
+            JSON.stringify(bookings)
+        );
+
+        // Record the cancellation
+        let cancelled = getCancelledBookings();
+
+        if (!cancelled.includes(bookingId)) {
+            cancelled.push(bookingId);
+        }
+
+        localStorage.setItem(
+            "aviationCancelledBookings",
+            JSON.stringify(cancelled)
+        );
+
+        renderBookings();
+
+        alert("Booking " + bookingId + " cancelled successfully.");
+    }
+
+    function renderBookings() {
+        const bookingList = document.getElementById("bookingList");
+        const noBookings = document.getElementById("noBookings");
+
+        const bookings = getBookings();
+
+        bookingList.innerHTML = "";
+
+        if (bookings.length === 0) {
+            noBookings.style.display = "block";
+            return;
+        }
+
+        noBookings.style.display = "none";
+
+        bookings.forEach(function (booking) {
+            const card = document.createElement("div");
+            card.className = "my-booking-card";
+
+            // Create elements safely for user-provided text
+            const top = document.createElement("div");
+            top.className = "booking-top";
+
+            const heading = document.createElement("div");
+
+            const title = document.createElement("h3");
+            title.textContent = "Booking ID: " + booking.bookingId;
+
+            const status = document.createElement("span");
+            status.className = "booking-status";
+            status.textContent = booking.status;
+
+            heading.append(title, status);
+
+            const price = document.createElement("p");
+            price.className = "booking-price";
+            price.textContent = "₹" + Number(booking.price || 4999).toLocaleString("en-IN");
+
+            top.append(heading, price);
+
+            const route = document.createElement("div");
+            route.className = "booking-route";
+
+            const from = document.createElement("div");
+            from.innerHTML = "<small>FROM</small>";
+
+            const fromCity = document.createElement("h2");
+            fromCity.textContent = booking.fromCity;
+
+            const fromName = document.createElement("p");
+            fromName.textContent = booking.fromCity;
+
+            from.append(fromCity, fromName);
+
+            const plane = document.createElement("div");
+            plane.className = "plane-icon";
+            plane.textContent = "✈️";
+
+            const to = document.createElement("div");
+            to.innerHTML = "<small>TO</small>";
+
+            const toCity = document.createElement("h2");
+            toCity.textContent = booking.toCity;
+
+            const toName = document.createElement("p");
+            toName.textContent = booking.toCity;
+
+            to.append(toCity, toName);
+
+            route.append(from, plane, to);
+
+            const details = document.createElement("div");
+            details.className = "booking-details";
+
+            const values = [
+                ["Passenger", booking.passengerName],
+                ["Date", booking.travelDate],
+                ["Passengers", booking.passengers],
+                ["Class", booking.travelClass]
+            ];
+
+            values.forEach(function (item) {
+                const field = document.createElement("div");
+                const label = document.createElement("strong");
+                const value = document.createElement("p");
+
+                label.textContent = item[0];
+                value.textContent = item[1];
+
+                field.append(label, value);
+                details.appendChild(field);
+            });
+
+            const actions = document.createElement("div");
+            actions.className = "booking-actions";
+
+            const viewButton = document.createElement("button");
+            viewButton.textContent = "View Details";
+            viewButton.onclick = function () {
+                viewBooking(booking.bookingId);
+            };
+
+            const cancelButton = document.createElement("button");
+            cancelButton.className = "cancel-btn";
+            cancelButton.textContent = "Cancel Booking";
+            cancelButton.onclick = function () {
+                cancelBooking(booking.bookingId);
+            };
+
+            actions.append(viewButton, cancelButton);
+            card.append(top, route, details, actions);
+            bookingList.appendChild(card);
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", renderBookings);
+</script> 
+   
+
+</body>
+</html>

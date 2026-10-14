@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Aviation</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">AVIATION</div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- Registration Section -->
+    <section class="register-section">
+
+        <div class="register-container">
+
+            <div class="register-header">
+                <h1>Create Account</h1>
+                <p>Join Aviation and start your journey</p>
+            </div>
+
+            <form onsubmit="registerUser(event)">
+
+                <label>Full Name</label>
+                <input
+                    type="text"
+                    id="registerName"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+                <label>Email Address</label>
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="Enter your email"
+                    required
+                >
+
+                <label>Phone Number</label>
+                <input
+                    type="tel"
+                    id="registerPhone"
+                    placeholder="Enter your phone number"
+                    required
+                >
+
+                <label>Password</label>
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Create a password"
+                    minlength="6"
+                    required
+                >
+
+                <label>Confirm Password</label>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm your password"
+                    minlength="6"
+                    required
+                >
+
+                <div class="terms">
+                    <label>
+                        <input type="checkbox" id="terms" required>
+                        I agree to the Terms & Conditions
+                    </label>
+                </div>
+
+                <button type="submit">Create Account</button>
+
+            </form>
+
+            <div class="login-link">
+                <p>Already have an account?</p>
+                <a href="login.html">Login Here</a>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Aviation. All Rights Reserved.</p>
+    </footer>
+
+
+    <!-- JavaScript -->
+ <script>
+function registerUser(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("registerName").value;
+    const email = document.getElementById("registerEmail").value;
+    const password = document.getElementById("registerPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    if (password.length < 6) {
+        alert("Password must contain at least 6 characters.");
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("aviationUsers")) || [];
+
+    const emailExists = users.some(user => user.email === email);
+
+    if (emailExists) {
+        alert("This email is already registered!");
+        return;
+    }
+
+    users.push({
+        name: name,
+        email: email,
+        password: password
+    });
+
+    localStorage.setItem("aviationUsers", JSON.stringify(users));
+
+    alert("Registration successful! You can now log in.");
+
+    document.querySelector("form").reset();
+
+    window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>

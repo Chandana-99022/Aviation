@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Aviation | Flights</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+
+        <div class="logo">✈ AVIATION</div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="flights.html">Flights</a>
+            <a href="services.html">Services</a>
+            <a href="destinations.html">Destinations</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html" class="login-btn">Login</a>
+        </nav>
+
+    </header>
+
+
+    <!-- Flights Hero -->
+    <section class="flights-hero">
+
+        <div>
+            <p>FLIGHT INFORMATION</p>
+
+            <h1>Find Your Perfect Flight</h1>
+
+            <p>
+                Search available flights and choose the best option
+                for your journey.
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- Search Flights -->
+    <section class="flight-search-page">
+
+        <h2>Search Flights</h2>
+
+        <form id="flightSearchForm">
+
+            <div class="search-field">
+                <label>From</label>
+                <input
+                    type="text"
+                    id="from"
+                    placeholder="e.g. Bangalore"
+                    required>
+            </div>
+
+
+            <div class="search-field">
+                <label>To</label>
+                <input
+                    type="text"
+                    id="to"
+                    placeholder="e.g. Delhi"
+                    required>
+            </div>
+
+
+            <div class="search-field">
+                <label>Departure Date</label>
+                <input
+                    type="date"
+                    id="departure"
+                    required>
+            </div>
+
+
+            <div class="search-field">
+                <label>Passengers</label>
+
+                <select id="passengers">
+
+                    <option value="1">1 Passenger</option>
+                    <option value="2">2 Passengers</option>
+                    <option value="3">3 Passengers</option>
+                    <option value="4">4 Passengers</option>
+                    <option value="5">5 Passengers</option>
+
+                </select>
+
+            </div>
+
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- Available Flights -->
+    <section class="available-flights">
+
+        <div class="section-title">
+
+            <p>AVAILABLE FLIGHTS</p>
+
+            <h2>Popular Flights</h2>
+
+        </div>
+
+
+        <div class="flight-container">
+
+
+            <!-- Flight 1 -->
+            <div class="flight-card">
+
+                <div class="airline">
+                    <h3>✈ Aviation Air</h3>
+                    <span>AV 101</span>
+                </div>
+
+                <div class="route">
+
+                    <div>
+                        <strong>BLR</strong>
+                        <p>Bangalore</p>
+                    </div>
+
+                    <div class="flight-line">
+                        ✈ ───────── ✈
+                    </div>
+
+                    <div>
+                        <strong>DEL</strong>
+                        <p>Delhi</p>
+                    </div>
+
+                </div>
+
+                <div class="flight-info">
+                    <span>🕐 2h 45m</span>
+                    <span>💺 Economy</span>
+                    <strong>₹4,999</strong>
+                </div>
+
+                <a href="booking.html" class="book-btn">
+                    Book Now
+                </a>
+
+            </div>
+
+
+            <!-- Flight 2 -->
+            <div class="flight-card">
+
+                <div class="airline">
+                    <h3>✈ Aviation Air</h3>
+                    <span>AV 202</span>
+                </div>
+
+                <div class="route">
+
+                    <div>
+                        <strong>BLR</strong>
+                        <p>Bangalore</p>
+                    </div>
+
+                    <div class="flight-line">
+                        ✈ ───────── ✈
+                    </div>
+
+                    <div>
+                        <strong>BOM</strong>
+                        <p>Mumbai</p>
+                    </div>
+
+                </div>
+
+                <div class="flight-info">
+                    <span>🕐 1h 40m</span>
+                    <span>💺 Economy</span>
+                    <strong>₹3,499</strong>
+                </div>
+
+                <a href="booking.html" class="book-btn">
+                    Book Now
+                </a>
+
+            </div>
+
+
+            <!-- Flight 3 -->
+            <div class="flight-card">
+
+                <div class="airline">
+                    <h3>✈ Aviation Air</h3>
+                    <span>AV 303</span>
+                </div>
+
+                <div class="route">
+
+                    <div>
+                        <strong>DEL</strong>
+                        <p>Delhi</p>
+                    </div>
+
+                    <div class="flight-line">
+                        ✈ ───────── ✈
+                    </div>
+
+                    <div>
+                        <strong>DXB</strong>
+                        <p>Dubai</p>
+                    </div>
+
+                </div>
+
+                <div class="flight-info">
+                    <span>🕐 3h 45m</span>
+                    <span>💺 Economy</span>
+                    <strong>₹12,999</strong>
+                </div>
+
+                <a href="booking.html" class="book-btn">
+                    Book Now
+                </a>
+
+            </div>
+
+
+            <!-- Flight 4 -->
+            <div class="flight-card">
+
+                <div class="airline">
+                    <h3>✈ Aviation Air</h3>
+                    <span>AV 404</span>
+                </div>
+
+                <div class="route">
+
+                    <div>
+                        <strong>BLR</strong>
+                        <p>Bangalore</p>
+                    </div>
+
+                    <div class="flight-line">
+                        ✈ ───────── ✈
+                    </div>
+
+                    <div>
+                        <strong>GOI</strong>
+                        <p>Goa</p>
+                    </div>
+
+                </div>
+
+                <div class="flight-info">
+                    <span>🕐 1h 15m</span>
+                    <span>💺 Economy</span>
+                    <strong>₹2,999</strong>
+                </div>
+
+                <a href="booking.html" class="book-btn">
+                    Book Now
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="footer-content">
+
+            <div>
+                <h3>✈ AVIATION</h3>
+
+                <p>
+                    Making your journey comfortable,
+                    simple and memorable.
+                </p>
+            </div>
+
+
+            <div>
+                <h3>Quick Links</h3>
+
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="flights.html">Flights</a>
+                <a href="contact.html">Contact</a>
+            </div>
+
+
+            <div>
+                <h3>Contact</h3>
+
+                <p>Email: info@aviation.com</p>
+                <p>Phone: +91 98765 43210</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            <p>
+                © 2026 Aviation. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script>
+
+        document
+            .getElementById("flightSearchForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                const from =
+                    document.getElementById("from").value;
+
+                const to =
+                    document.getElementById("to").value;
+
+                alert(
+                    "Searching flights from "
+                    + from
+                    + " to "
+                    + to
+                    + "..."
+                );
+
+            });
+
+    </script>
+
+</body>
+
+</html>
