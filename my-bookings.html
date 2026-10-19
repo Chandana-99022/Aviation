@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -206,125 +206,86 @@
 
 
     <!-- JavaScript -->
-   <script>
-    function getBookings() {
-        return JSON.parse(
-            localStorage.getItem("aviationBookings") || "[]"
-        );
-    }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script>
+let currentBookings = [];
 
-    function getCancelledBookings() {
-        return JSON.parse(
-            localStorage.getItem("aviationCancelledBookings") || "[]"
-        );
-    }
+async function renderBookings() {
+    const bookingList = document.getElementById("bookingList");
+    const noBookings = document.getElementById("noBookings");
 
-    function viewBooking(bookingId) {
-        const booking = getBookings().find(
-            item => item.bookingId === bookingId
-        );
+    bookingList.innerHTML = "<p>Loading your bookings...</p>";
+    noBookings.style.display = "none";
 
-        if (!booking) {
-            alert("Booking details not found.");
+    try {
+        const { data: sessionData, error: sessionError } =
+            await window.aviationDB.auth.getSession();
+
+        if (sessionError) {
+            throw sessionError;
+        }
+
+        const session = sessionData.session;
+
+        if (!session) {
+            bookingList.innerHTML = "";
+            noBookings.style.display = "block";
+            noBookings.querySelector("h2").textContent = "Login Required";
+            noBookings.querySelector("p").textContent =
+                "Please log in to view your flight bookings.";
             return;
         }
 
-        alert(
-            "Booking ID: " + booking.bookingId +
-            "\nPassenger: " + booking.passengerName +
-            "\nEmail: " + booking.email +
-            "\nFrom: " + booking.fromCity +
-            "\nTo: " + booking.toCity +
-            "\nTravel Date: " + booking.travelDate +
-            "\nPassengers: " + booking.passengers +
-            "\nClass: " + booking.travelClass +
-            "\nStatus: " + booking.status
-        );
-    }
+        const { data: bookings, error } = await window.aviationDB
+            .from("bookings")
+            .select("*")
+            .eq("user_id", session.user.id)
+            .order("created_at", { ascending: false });
 
-    function cancelBooking(bookingId) {
-        const confirmed = confirm(
-            "Are you sure you want to cancel booking " +
-            bookingId + "?"
-        );
-
-        if (!confirmed) return;
-
-        let bookings = getBookings();
-
-        const booking = bookings.find(
-            item => item.bookingId === bookingId
-        );
-
-        if (!booking) {
-            alert("Booking not found.");
-            return;
+        if (error) {
+            throw error;
         }
 
-        // Remove the selected booking from saved bookings
-        bookings = bookings.filter(
-            item => item.bookingId !== bookingId
-        );
-
-        localStorage.setItem(
-            "aviationBookings",
-            JSON.stringify(bookings)
-        );
-
-        // Record the cancellation
-        let cancelled = getCancelledBookings();
-
-        if (!cancelled.includes(bookingId)) {
-            cancelled.push(bookingId);
-        }
-
-        localStorage.setItem(
-            "aviationCancelledBookings",
-            JSON.stringify(cancelled)
-        );
-
-        renderBookings();
-
-        alert("Booking " + bookingId + " cancelled successfully.");
-    }
-
-    function renderBookings() {
-        const bookingList = document.getElementById("bookingList");
-        const noBookings = document.getElementById("noBookings");
-
-        const bookings = getBookings();
-
+        currentBookings = bookings || [];
         bookingList.innerHTML = "";
 
-        if (bookings.length === 0) {
+        if (currentBookings.length === 0) {
             noBookings.style.display = "block";
+            noBookings.querySelector("h2").textContent = "No Bookings Found";
+            noBookings.querySelector("p").textContent =
+                "You don't have any flight bookings yet.";
             return;
         }
 
         noBookings.style.display = "none";
 
-        bookings.forEach(function (booking) {
+        currentBookings.forEach(function (booking) {
             const card = document.createElement("div");
             card.className = "my-booking-card";
 
-            // Create elements safely for user-provided text
             const top = document.createElement("div");
             top.className = "booking-top";
 
             const heading = document.createElement("div");
-
             const title = document.createElement("h3");
-            title.textContent = "Booking ID: " + booking.bookingId;
+
+            title.textContent =
+                "Booking ID: " +
+                (booking.booking_reference || booking.id);
 
             const status = document.createElement("span");
-            status.className = "booking-status";
+            status.className = booking.status === "Cancelled"
+                ? "completed-status"
+                : "booking-status";
             status.textContent = booking.status;
 
             heading.append(title, status);
 
             const price = document.createElement("p");
             price.className = "booking-price";
-            price.textContent = "₹" + Number(booking.price || 4999).toLocaleString("en-IN");
+            price.textContent =
+                "₹" + Number(booking.total_price || 0).toLocaleString("en-IN");
 
             top.append(heading, price);
 
@@ -332,41 +293,36 @@
             route.className = "booking-route";
 
             const from = document.createElement("div");
-            from.innerHTML = "<small>FROM</small>";
+            const fromLabel = document.createElement("small");
+            fromLabel.textContent = "FROM";
 
             const fromCity = document.createElement("h2");
-            fromCity.textContent = booking.fromCity;
+            fromCity.textContent = booking.departure;
 
-            const fromName = document.createElement("p");
-            fromName.textContent = booking.fromCity;
-
-            from.append(fromCity, fromName);
+            from.append(fromLabel, fromCity);
 
             const plane = document.createElement("div");
             plane.className = "plane-icon";
             plane.textContent = "✈️";
 
             const to = document.createElement("div");
-            to.innerHTML = "<small>TO</small>";
+            const toLabel = document.createElement("small");
+            toLabel.textContent = "TO";
 
             const toCity = document.createElement("h2");
-            toCity.textContent = booking.toCity;
+            toCity.textContent = booking.destination;
 
-            const toName = document.createElement("p");
-            toName.textContent = booking.toCity;
-
-            to.append(toCity, toName);
-
+            to.append(toLabel, toCity);
             route.append(from, plane, to);
 
             const details = document.createElement("div");
             details.className = "booking-details";
 
             const values = [
-                ["Passenger", booking.passengerName],
-                ["Date", booking.travelDate],
+                ["Passenger", booking.passenger_name],
+                ["Date", booking.travel_date],
                 ["Passengers", booking.passengers],
-                ["Class", booking.travelClass]
+                ["Class", booking.travel_class || "Economy"]
             ];
 
             values.forEach(function (item) {
@@ -375,7 +331,7 @@
                 const value = document.createElement("p");
 
                 label.textContent = item[0];
-                value.textContent = item[1];
+                value.textContent = item[1] ?? "";
 
                 field.append(label, value);
                 details.appendChild(field);
@@ -387,25 +343,120 @@
             const viewButton = document.createElement("button");
             viewButton.textContent = "View Details";
             viewButton.onclick = function () {
-                viewBooking(booking.bookingId);
+                viewBooking(booking.id);
             };
 
-            const cancelButton = document.createElement("button");
-            cancelButton.className = "cancel-btn";
-            cancelButton.textContent = "Cancel Booking";
-            cancelButton.onclick = function () {
-                cancelBooking(booking.bookingId);
-            };
+            actions.appendChild(viewButton);
 
-            actions.append(viewButton, cancelButton);
+            if (booking.status === "Confirmed") {
+                const cancelButton = document.createElement("button");
+                cancelButton.className = "cancel-btn";
+                cancelButton.textContent = "Cancel Booking";
+                cancelButton.onclick = function () {
+                    cancelBooking(booking.id);
+                };
+
+                actions.appendChild(cancelButton);
+            }
+
             card.append(top, route, details, actions);
             bookingList.appendChild(card);
         });
+
+    } catch (error) {
+        console.error("Loading bookings failed:", error);
+        bookingList.innerHTML =
+            "<p>Unable to load bookings. Please check your database connection and try again.</p>";
+    }
+}
+
+function viewBooking(id) {
+    const booking = currentBookings.find(
+        item => String(item.id) === String(id)
+    );
+
+    if (!booking) {
+        alert("Booking details not found.");
+        return;
     }
 
-    document.addEventListener("DOMContentLoaded", renderBookings);
-</script> 
-   
+    alert(
+        "Booking Reference: " +
+        (booking.booking_reference || booking.id) +
+        "\nPassenger: " + booking.passenger_name +
+        "\nEmail: " + (booking.email || "Not provided") +
+        "\nPhone: " + (booking.phone || "Not provided") +
+        "\nFrom: " + booking.departure +
+        "\nTo: " + booking.destination +
+        "\nTravel Date: " + booking.travel_date +
+        "\nPassengers: " + booking.passengers +
+        "\nClass: " + (booking.travel_class || "Economy") +
+        "\nTotal Price: ₹" + booking.total_price +
+        "\nStatus: " + booking.status
+    );
+}
 
+async function cancelBooking(id) {
+    const booking = currentBookings.find(
+        item => String(item.id) === String(id)
+    );
+
+    if (!booking || booking.status !== "Confirmed") {
+        alert("This booking cannot be cancelled.");
+        return;
+    }
+
+    const confirmed = confirm(
+        "Are you sure you want to cancel booking " +
+        (booking.booking_reference || booking.id) + "?"
+    );
+
+    if (!confirmed) return;
+
+    try {
+        const { data: sessionData, error: sessionError } =
+            await window.aviationDB.auth.getSession();
+
+        if (sessionError) {
+            throw sessionError;
+        }
+
+        const session = sessionData.session;
+
+        if (!session) {
+            alert("Please log in first.");
+            window.location.href = "login.html";
+            return;
+        }
+
+        const { data, error } = await window.aviationDB
+            .from("bookings")
+            .update({ status: "Cancelled" })
+            .eq("id", booking.id)
+            .eq("user_id", session.user.id)
+            .eq("status", "Confirmed")
+            .select("id");
+
+        if (error) {
+            throw error;
+        }
+
+        if (!data || data.length === 0) {
+            alert("Cancellation was not saved. Please refresh and try again.");
+            return;
+        }
+
+        alert("Booking cancelled successfully!");
+        await renderBookings();
+
+    } catch (error) {
+        console.error("Cancellation failed:", error);
+        alert("Unable to cancel booking. Please try again.");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", renderBookings);
+</script>
+ 
 </body>
 </html>
