@@ -85,40 +85,47 @@
 
 
     <!-- JavaScript -->
-    <script>
+    
+   <script>
 async function loginUser(event) {
     event.preventDefault();
 
-    const email = document.getElementById("loginEmail").value;
+    const email = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value;
+    const button = document.querySelector('form button[type="submit"]');
 
-    const formData = new FormData();
+    if (!window.aviationDB) {
+        alert("Supabase connection is missing. Please check js/supabase.js.");
+        return;
+    }
 
-    formData.append("email", email);
-    formData.append("password", password);
+    button.disabled = true;
+    button.textContent = "Logging in...";
 
     try {
-        const response = await fetch("backend/login.php", {
-            method: "POST",
-            body: formData
+        const { data, error } = await aviationDB.auth.signInWithPassword({
+            email: email,
+            password: password
         });
 
-        const result = await response.text();
-
-        if (result.includes("Login successful")) {
-            alert("Login successful!");
-            document.querySelector("form").reset();
-            window.location.href = "index.html";
-        } else {
-            alert(result);
+        if (error) {
+            throw error;
         }
 
+        alert("Login successful! Welcome to Aviation.");
+        window.location.href = "index.html";
+
     } catch (error) {
-        console.error(error);
-        alert("Unable to connect to server.");
+        console.error("Login error:", error);
+        alert("Login failed: " + error.message);
+    } finally {
+        button.disabled = false;
+        button.textContent = "Login";
     }
 }
-    </script>
+</script>
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
 
 </body>
 </html>
