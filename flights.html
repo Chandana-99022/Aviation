@@ -4,17 +4,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Aviation | Flights</title>
 
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+      /* Modern Airline Hero Design */
+.flights-hero {
+    display: block;
+    width: 100%;
+    padding: 100px 20px 110px;
+    text-align: center;
+    color: #ffffff;
+    background: linear-gradient(135deg, #06152e 0%, #102f5c 55%, #174a7e 100%);
+    box-sizing: border-box;
+}
+
+.flights-hero .hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.flights-hero .hero-label {
+    color: #a9c9f5;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    margin-bottom: 25px;
+}
+
+.flights-hero h1 {
+    color: #ffffff;
+    font-size: 58px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 25px;
+    letter-spacing: -1px;
+}
+
+.flights-hero .hero-description {
+    color: #e0eaf7;
+    font-size: 18px;
+    line-height: 1.8;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+    .flights-hero {
+        padding: 70px 18px;
+    }
+
+    .flights-hero h1 {
+        font-size: 36px;
+    }
+
+    .flights-hero .hero-label {
+        letter-spacing: 3px;
+    }
+
+    .flights-hero .hero-description {
+        font-size: 16px;
+    }
+}
+        /* Flight search */
+        .flight-search-page {
+            max-width: 1100px;
+            margin: 20px auto 40px;
+            padding: 28px;
+            background: #ffffff;
+            border: 1px solid #e8edf3;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(23, 43, 77, 0.05);
+            box-sizing: border-box;
+        }
+
+        .flight-search-page h2 {
+            color: #172b4d;
+            margin-top: 0;
+            margin-bottom: 24px;
+        }
+
+        #flightSearchForm {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 18px;
+            align-items: end;
+        }
+
+        .search-field label {
+            display: block;
+            margin-bottom: 8px;
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .search-field input,
+        .search-field select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d9e1eb;
+            border-radius: 7px;
+            box-sizing: border-box;
+            background: #ffffff;
+            font-size: 14px;
+        }
+
+        #flightSearchForm button {
+            padding: 13px;
+            background: #173b65;
+            color: #ffffff;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #flightSearchForm button:hover,
+        .booking-btn:hover {
+            background: #285985;
+        }
+
+        /* Available flights */
+        .available-flights {
+            max-width: 1100px;
+            margin: 45px auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title > p {
+            color: #52749b;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .section-title h2 {
+            color: #172b4d;
+            font-size: 30px;
+            margin-top: 10px;
+        }
+
+        .flight-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+
+        .flight-card {
+            background: #ffffff;
+            border: 1px solid #e1e7ef;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 5px 18px rgba(23, 43, 77, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(23, 43, 77, 0.10);
+        }
+
+        .airline-name {
+            color: #172b4d;
+            font-size: 20px;
+            margin: 0 0 22px;
+        }
+
+        .flight-route {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .flight-city {
+            color: #172b4d;
+            font-size: 16px;
+            font-weight: bold;
+            overflow-wrap: anywhere;
+        }
+
+        .route-arrow {
+            color: #52749b;
+            font-size: 24px;
+        }
+
+        .flight-date {
+            color: #68778a;
+            padding: 14px 0;
+            border-top: 1px solid #edf0f4;
+            font-size: 14px;
+        }
+
+        .flight-price {
+            color: #173b65;
+            font-size: 25px;
+            font-weight: bold;
+            margin: 12px 0 20px;
+        }
+
+        .booking-btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: #173b65;
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .flight-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 25px;
+            color: #68778a;
+        }
+
+        @media (max-width: 600px) {
+            .flights-hero {
+                padding: 40px 16px;
+            }
+
+            .flights-hero h1 {
+                font-size: 28px;
+            }
+
+            .flight-search-page {
+                margin: 15px 12px 30px;
+                padding: 18px;
+            }
+
+            .available-flights {
+                padding: 12px;
+            }
+
+            .section-title h2 {
+                font-size: 25px;
+            }
+        }
+        /* Modern dark airline flight cards */
+.flight-card {
+background: linear-gradient(135deg, #0b1f3a, #153b65) !important;
+color: #ffffff !important;
+border: 1px solid #294e78;
+border-radius: 16px;
+padding: 25px;
+margin-bottom: 20px;
+box-shadow: 0 8px 25px rgba(0, 15, 40, 0.18);
+}
+
+.flight-card h2,
+.flight-card h3,
+.flight-card h4,
+.flight-card p,
+.flight-card span,
+.flight-card strong,
+.flight-card label {
+color: #ffffff !important;
+}
+
+.flight-card button,
+.flight-card .book-btn {
+background: #3b82f6;
+color: #ffffff;
+border: none;
+padding: 12px 22px;
+border-radius: 8px;
+font-weight: 600;
+cursor: pointer;
+}
+
+.flight-card button:hover,
+.flight-card .book-btn:hover {
+background: #2563eb;
+}
+/* Book Now button */
+.flight-card button,
+.flight-card .book-btn {
+background: #f4b400 !important;
+color: #071a33 !important;
+border: none;
+padding: 12px 24px;
+border-radius: 8px;
+font-size: 15px;
+font-weight: bold;
+cursor: pointer;
+transition: 0.3s;
+}
+
+.flight-card button:hover,
+.flight-card .book-btn:hover {
+background: #ffd166 !important;
+color: #071a33 !important;
+}
+    </style>
 </head>
 
 <body>
 
     <!-- Navigation -->
     <header>
-
         <div class="logo">✈ AVIATION</div>
 
         <nav>
@@ -26,337 +324,267 @@
             <a href="contact.html">Contact</a>
             <a href="login.html" class="login-btn">Login</a>
         </nav>
-
     </header>
 
-
-    <!-- Flights Hero -->
+    <!-- Elegant Flight Introduction -->
     <section class="flights-hero">
-
-        <div>
-            <p>FLIGHT INFORMATION</p>
+        <div class="hero-content">
+            <p class="hero-label">FLIGHT INFORMATION</p>
 
             <h1>Find Your Perfect Flight</h1>
 
-            <p>
-                Search available flights and choose the best option
-                for your journey.
+            <p class="hero-description">
+                Explore available flights and plan your next journey.
             </p>
         </div>
-
     </section>
-
 
     <!-- Search Flights -->
     <section class="flight-search-page">
-
         <h2>Search Flights</h2>
 
         <form id="flightSearchForm">
-
             <div class="search-field">
-                <label>From</label>
-                <input
-                    type="text"
-                    id="from"
-                    placeholder="e.g. Bangalore"
-                    required>
+                <label for="from">From</label>
+                <input type="text" id="from"
+                       placeholder="e.g. Bengaluru" required>
             </div>
 
-
             <div class="search-field">
-                <label>To</label>
-                <input
-                    type="text"
-                    id="to"
-                    placeholder="e.g. Delhi"
-                    required>
+                <label for="to">To</label>
+                <input type="text" id="to"
+                       placeholder="e.g. Delhi" required>
             </div>
 
-
             <div class="search-field">
-                <label>Departure Date</label>
-                <input
-                    type="date"
-                    id="departure"
-                    required>
+                <label for="departure">Departure Date</label>
+                <input type="date" id="departure" required>
             </div>
 
-
             <div class="search-field">
-                <label>Passengers</label>
-
+                <label for="passengers">Passengers</label>
                 <select id="passengers">
-
                     <option value="1">1 Passenger</option>
                     <option value="2">2 Passengers</option>
                     <option value="3">3 Passengers</option>
                     <option value="4">4 Passengers</option>
                     <option value="5">5 Passengers</option>
-
                 </select>
-
             </div>
 
-
-            <button type="submit">
-                Search
-            </button>
-
+            <button type="submit">Search Flights</button>
         </form>
-
     </section>
 
-
-    <!-- Available Flights -->
+    <!-- Flights from Supabase -->
     <section class="available-flights">
-
         <div class="section-title">
-
             <p>AVAILABLE FLIGHTS</p>
-
-            <h2>Popular Flights</h2>
-
+            <h2>Explore Our Flights</h2>
         </div>
 
-
-        <div class="flight-container">
-
-
-            <!-- Flight 1 -->
-            <div class="flight-card">
-
-                <div class="airline">
-                    <h3>✈ Aviation Air</h3>
-                    <span>AV 101</span>
-                </div>
-
-                <div class="route">
-
-                    <div>
-                        <strong>BLR</strong>
-                        <p>Bangalore</p>
-                    </div>
-
-                    <div class="flight-line">
-                        ✈ ───────── ✈
-                    </div>
-
-                    <div>
-                        <strong>DEL</strong>
-                        <p>Delhi</p>
-                    </div>
-
-                </div>
-
-                <div class="flight-info">
-                    <span>🕐 2h 45m</span>
-                    <span>💺 Economy</span>
-                    <strong>₹4,999</strong>
-                </div>
-
-                <a href="booking.html" class="book-btn">
-                    Book Now
-                </a>
-
-            </div>
-
-
-            <!-- Flight 2 -->
-            <div class="flight-card">
-
-                <div class="airline">
-                    <h3>✈ Aviation Air</h3>
-                    <span>AV 202</span>
-                </div>
-
-                <div class="route">
-
-                    <div>
-                        <strong>BLR</strong>
-                        <p>Bangalore</p>
-                    </div>
-
-                    <div class="flight-line">
-                        ✈ ───────── ✈
-                    </div>
-
-                    <div>
-                        <strong>BOM</strong>
-                        <p>Mumbai</p>
-                    </div>
-
-                </div>
-
-                <div class="flight-info">
-                    <span>🕐 1h 40m</span>
-                    <span>💺 Economy</span>
-                    <strong>₹3,499</strong>
-                </div>
-
-                <a href="booking.html" class="book-btn">
-                    Book Now
-                </a>
-
-            </div>
-
-
-            <!-- Flight 3 -->
-            <div class="flight-card">
-
-                <div class="airline">
-                    <h3>✈ Aviation Air</h3>
-                    <span>AV 303</span>
-                </div>
-
-                <div class="route">
-
-                    <div>
-                        <strong>DEL</strong>
-                        <p>Delhi</p>
-                    </div>
-
-                    <div class="flight-line">
-                        ✈ ───────── ✈
-                    </div>
-
-                    <div>
-                        <strong>DXB</strong>
-                        <p>Dubai</p>
-                    </div>
-
-                </div>
-
-                <div class="flight-info">
-                    <span>🕐 3h 45m</span>
-                    <span>💺 Economy</span>
-                    <strong>₹12,999</strong>
-                </div>
-
-                <a href="booking.html" class="book-btn">
-                    Book Now
-                </a>
-
-            </div>
-
-
-            <!-- Flight 4 -->
-            <div class="flight-card">
-
-                <div class="airline">
-                    <h3>✈ Aviation Air</h3>
-                    <span>AV 404</span>
-                </div>
-
-                <div class="route">
-
-                    <div>
-                        <strong>BLR</strong>
-                        <p>Bangalore</p>
-                    </div>
-
-                    <div class="flight-line">
-                        ✈ ───────── ✈
-                    </div>
-
-                    <div>
-                        <strong>GOI</strong>
-                        <p>Goa</p>
-                    </div>
-
-                </div>
-
-                <div class="flight-info">
-                    <span>🕐 1h 15m</span>
-                    <span>💺 Economy</span>
-                    <strong>₹2,999</strong>
-                </div>
-
-                <a href="booking.html" class="book-btn">
-                    Book Now
-                </a>
-
-            </div>
-
+        <div id="flightList" class="flight-list">
+            <p class="flight-message">Loading flights...</p>
         </div>
-
     </section>
-
 
     <!-- Footer -->
     <footer>
-
         <div class="footer-content">
 
             <div>
                 <h3>✈ AVIATION</h3>
-
-                <p>
-                    Making your journey comfortable,
-                    simple and memorable.
-                </p>
+                <p>Making your journey comfortable, simple and memorable.</p>
             </div>
-
 
             <div>
                 <h3>Quick Links</h3>
-
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
                 <a href="flights.html">Flights</a>
                 <a href="contact.html">Contact</a>
             </div>
 
-
             <div>
                 <h3>Contact</h3>
-
-                <p>Email: info@aviation.com</p>
-                <p>Phone: +91 98765 43210</p>
-
+                <p>Email: chandanayn18.com</p>
+                <p>Phone: +91 8660149535</p>
             </div>
 
         </div>
 
-
         <div class="copyright">
-
-            <p>
-                © 2026 Aviation. All Rights Reserved.
-            </p>
-
+            <p>© 2026 Aviation. All Rights Reserved.</p>
         </div>
-
     </footer>
 
+    <!-- Supabase Connection -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
 
-    <!-- JavaScript -->
     <script>
+        let allFlights = [];
 
-        document
-            .getElementById("flightSearchForm")
-            .addEventListener("submit", function(event) {
+        const flightList = document.getElementById("flightList");
+        const departureInput = document.getElementById("departure");
 
-                event.preventDefault();
+        // Set today's date as the earliest selectable date
+        const today = new Date();
 
-                const from =
-                    document.getElementById("from").value;
+        const localToday = [
+            today.getFullYear(),
+            String(today.getMonth() + 1).padStart(2, "0"),
+            String(today.getDate()).padStart(2, "0")
+        ].join("-");
 
-                const to =
-                    document.getElementById("to").value;
+        departureInput.min = localToday;
 
-                alert(
-                    "Searching flights from "
-                    + from
-                    + " to "
-                    + to
-                    + "..."
+        function escapeHTML(value) {
+            return String(value ?? "").replace(/[&<>"']/g, function (character) {
+                return {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                }[character];
+            });
+        }
+
+        function formatDate(dateValue) {
+            if (!dateValue) return "Date not available";
+
+            const parts = String(dateValue).split("-");
+
+            if (parts.length === 3) {
+                const date = new Date(
+                    Number(parts[0]),
+                    Number(parts[1]) - 1,
+                    Number(parts[2])
                 );
 
+                return date.toLocaleDateString("en-IN", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric"
+                });
+            }
+
+            return escapeHTML(dateValue);
+        }
+
+        function displayFlights(flights) {
+            if (!flights.length) {
+                flightList.innerHTML =
+                    '<p class="flight-message">No matching flights found. Please try another route or date.</p>';
+                return;
+            }
+
+            flightList.innerHTML = flights.map(function (flight) {
+                const price = Number(flight.price);
+
+                return `
+                    <article class="flight-card">
+                        <h3 class="airline-name">
+                            ✈ ${escapeHTML(flight.airline)}
+                        </h3>
+
+                        <div class="flight-route">
+                            <span class="flight-city">
+                                ${escapeHTML(flight.departure)}
+                            </span>
+
+                            <span class="route-arrow">→</span>
+
+                            <span class="flight-city">
+                                ${escapeHTML(flight.destination)}
+                            </span>
+                        </div>
+
+                        <div class="flight-date">
+                            📅 ${formatDate(flight.departure_date)}
+                        </div>
+
+                        <p>Ticket price</p>
+
+                        <div class="flight-price">
+                            ${Number.isFinite(price)
+                                ? "₹" + price.toLocaleString("en-IN")
+                                : "Price unavailable"}
+                        </div>
+
+                        <a class="booking-btn"
+                           href="booking.html?from=${encodeURIComponent(flight.departure ?? "")}&to=${encodeURIComponent(flight.destination ?? "")}&date=${encodeURIComponent(flight.departure_date ?? "")}&flightId=${encodeURIComponent(flight.id ?? "")}">
+                            Book Now
+                        </a>
+                    </article>
+                `;
+            }).join("");
+        }
+
+        async function loadFlights() {
+            try {
+                if (!window.aviationDB) {
+                    throw new Error("Supabase connection not found.");
+                }
+
+                const { data, error } = await window.aviationDB
+                    .from("flights")
+                    .select("id, airline, departure, destination, departure_date, price")
+                    .order("id", { ascending: true });
+
+                if (error) throw error;
+
+                allFlights = data || [];
+                displayFlights(allFlights);
+
+            } catch (error) {
+                console.error("Flight loading error:", error);
+
+                flightList.innerHTML =
+                    '<p class="flight-message">Unable to load flights. Please check your internet connection and database settings.</p>';
+            }
+        }
+
+        // Search the loaded flights
+        document.getElementById("flightSearchForm")
+            .addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const from = document.getElementById("from")
+                    .value.trim().toLowerCase();
+
+                const to = document.getElementById("to")
+                    .value.trim().toLowerCase();
+
+                const date = departureInput.value;
+
+                function sameCity(first, second) {
+                    first = first.trim().toLowerCase();
+                    second = second.trim().toLowerCase();
+
+                    if (first === second) return true;
+
+                    const cityAliases = {
+                        "bangalore": "bengaluru",
+                        "bengaluru": "bengaluru"
+                    };
+
+                    return (cityAliases[first] || first) ===
+                           (cityAliases[second] || second);
+                }
+
+                const matchingFlights = allFlights.filter(function (flight) {
+                    return sameCity(flight.departure || "", from) &&
+                           sameCity(flight.destination || "", to) &&
+                           flight.departure_date === date;
+                });
+
+                displayFlights(matchingFlights);
             });
 
+        loadFlights();
     </script>
 
 </body>
-
 </html>
