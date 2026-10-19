@@ -109,14 +109,18 @@
 
 
     <!-- JavaScript -->
+     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
  <script>
-function registerUser(event) {
+async function registerUser(event) {
     event.preventDefault();
 
-    const name = document.getElementById("registerName").value;
-    const email = document.getElementById("registerEmail").value;
+    const name = document.getElementById("registerName").value.trim();
+    const email = document.getElementById("registerEmail").value.trim();
+    const phone = document.getElementById("registerPhone").value.trim();
     const password = document.getElementById("registerPassword").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
+    const button = document.querySelector('form button[type="submit"]');
 
     if (password !== confirmPassword) {
         alert("Passwords do not match!");
@@ -128,28 +132,48 @@ function registerUser(event) {
         return;
     }
 
-    let users = JSON.parse(localStorage.getItem("aviationUsers")) || [];
-
-    const emailExists = users.some(user => user.email === email);
-
-    if (emailExists) {
-        alert("This email is already registered!");
+    if (!window.aviationDB) {
+        alert("Supabase connection is missing. Please check js/supabase.js.");
         return;
     }
 
-    users.push({
-        name: name,
-        email: email,
-        password: password
-    });
+    button.disabled = true;
+    button.textContent = "Creating account...";
 
-    localStorage.setItem("aviationUsers", JSON.stringify(users));
+    try {
+        const { data, error } = await aviationDB.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    full_name: name,
+                    phone: phone
+                }
+            }
+        });
 
-    alert("Registration successful! You can now log in.");
+        if (error) {
+            throw error;
+        }
 
-    document.querySelector("form").reset();
+        if (data.session) {
+            alert("Registration successful! You can now book flights.");
+            window.location.href = "index.html";
+        } else {
+            alert(
+                "Registration submitted successfully! " +
+                "Please check your email for a confirmation link before logging in."
+            );
 
-    window.location.href = "login.html";
+            window.location.href = "login.html";
+        }
+    } catch (error) {
+        console.error("Registration error:", error);
+        alert("Registration failed: " + error.message);
+    } finally {
+        button.disabled = false;
+        button.textContent = "Create Account";
+    }
 }
 </script>
 
