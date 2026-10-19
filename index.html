@@ -22,7 +22,9 @@
             <a href="services.html">Services</a>
             <a href="destinations.html">Destinations</a>
             <a href="contact.html">Contact</a>
-            <a href="login.html" class="login-btn">Login</a>
+            <a href="login.html" class="login-btn"id="loginBtn">Login</a>
+            <button id="logoutBtn" class="login-btn"style="display:none;"
+            onclick="logoutUser()">Logout</button>"
         </nav>
     </header>
 
@@ -227,6 +229,55 @@
         </div>
 
     </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
 
+<script>
+async function updateAuthButtons() {
+    const db = window.aviationDB;
+
+    if (!db) {
+        console.error("Supabase connection not found.");
+        return;
+    }
+
+    const { data, error } = await db.auth.getSession();
+
+    if (error) {
+        console.error("Session error:", error.message);
+        return;
+    }
+
+    const isLoggedIn = !!data.session;
+
+    document.getElementById("loginBtn").style.display =
+        isLoggedIn ? "none" : "inline-block";
+
+    document.getElementById("logoutBtn").style.display =
+        isLoggedIn ? "inline-block" : "none";
+}
+
+async function logoutUser() {
+    const db = window.aviationDB;
+
+    if (!db) {
+        alert("Database connection is not available.");
+        return;
+    }
+
+    const { error } = await db.auth.signOut();
+
+    if (error) {
+        alert("Logout failed: " + error.message);
+        console.error(error);
+        return;
+    }
+
+    alert("You have logged out successfully!");
+    window.location.href = "login.html";
+}
+
+document.addEventListener("DOMContentLoaded", updateAuthButtons);
+</script>
 </body>
 </html>
