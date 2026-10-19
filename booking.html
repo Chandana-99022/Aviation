@@ -6,248 +6,377 @@
     <title>Flight Booking - Aviation</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-    <!-- Navigation -->
-    <header>
-        <nav class="navbar">
-            <div class="logo">AVIATION</div>
+<header>
+    <nav class="navbar">
+        <div class="logo">AVIATION</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="flights.html">Flights</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="destinations.html">Destinations</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+</header>
 
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="flights.html">Flights</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-            </ul>
-        </nav>
-    </header>
+<section class="booking-hero">
+    <div class="hero-content">
+        <h1>Book Your Flight</h1>
+        <p>Complete your details and reserve your journey.</p>
+    </div>
+</section>
 
+<section class="booking-section">
+    <div class="booking-container">
 
-    <!-- Booking Hero -->
-    <section class="booking-hero">
-        <div class="hero-content">
-            <h1>Book Your Flight</h1>
-            <p>Complete your details and reserve your journey.</p>
+        <div class="booking-header">
+            <h2>Flight Booking Form</h2>
+            <p>Enter your details to continue with your booking.</p>
         </div>
-    </section>
 
+        <form id="bookingForm">
 
-    <!-- Booking Form -->
-    <section class="booking-section">
-
-        <div class="booking-container">
-
-            <div class="booking-header">
-                <h2>Flight Booking Form</h2>
-                <p>Enter your details to continue with your booking.</p>
-            </div>
-
-            <form onsubmit="bookFlight(event)">
-
-                <div class="form-row">
-
-                    <div class="form-group">
-                        <label>Passenger Name</label>
-                        <input
-                            type="text"
-                            id="passengerName"
-                            placeholder="Enter passenger name"
-                            required
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input
-                            type="email"
-                            id="bookingEmail"
-                            placeholder="Enter email"
-                            required
-                        >
-                    </div>
-
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="passengerName">Passenger Name</label>
+                    <input type="text" id="passengerName"
+                           placeholder="Enter passenger name" required>
                 </div>
-
-
-                <div class="form-row">
-
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <input
-                            type="tel"
-                            id="bookingPhone"
-                            placeholder="Enter phone number"
-                            required
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label>Travel Date</label>
-                        <input
-                            type="date"
-                            id="travelDate"
-                            required
-                        >
-                    </div>
-
-                </div>
-
-
-                <div class="form-row">
-
-                    <div class="form-group">
-                        <label>From</label>
-                        <select id="fromCity" required>
-                            <option value="">Select departure city</option>
-                            <option value="Bengaluru">Bengaluru (BLR)</option>
-                            <option value="Delhi">Delhi (DEL)</option>
-                            <option value="Mumbai">Mumbai (BOM)</option>
-                            <option value="Goa">Goa (GOI)</option>
-                            <option value="Chennai">Chennai (MAA)</option>
-                            <option value="Hyderabad">Hyderabad (HYD)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>To</label>
-                        <select id="toCity" required>
-                            <option value="">Select destination</option>
-                            <option value="Bengaluru">Bengaluru (BLR)</option>
-                            <option value="Delhi">Delhi (DEL)</option>
-                            <option value="Mumbai">Mumbai (BOM)</option>
-                            <option value="Goa">Goa (GOI)</option>
-                            <option value="Chennai">Chennai (MAA)</option>
-                            <option value="Hyderabad">Hyderabad (HYD)</option>
-                        </select>
-                    </div>
-
-                </div>
-
-
-                <div class="form-row">
-
-                    <div class="form-group">
-                        <label>Number of Passengers</label>
-                        <select id="passengers" required>
-                            <option value="">Select passengers</option>
-                            <option value="1">1 Passenger</option>
-                            <option value="2">2 Passengers</option>
-                            <option value="3">3 Passengers</option>
-                            <option value="4">4 Passengers</option>
-                            <option value="5">5 Passengers</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Travel Class</label>
-                        <select id="travelClass" required>
-                            <option value="">Select class</option>
-                            <option value="Economy">Economy</option>
-                            <option value="Premium Economy">Premium Economy</option>
-                            <option value="Business">Business</option>
-                        </select>
-                    </div>
-
-                </div>
-
 
                 <div class="form-group">
-                    <label>Special Requests</label>
-                    <textarea
-                        id="specialRequests"
-                        rows="4"
-                        placeholder="Any special requests? (Optional)"
-                    ></textarea>
+                    <label for="bookingEmail">Email Address</label>
+                    <input type="email" id="bookingEmail"
+                           placeholder="Enter email" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="bookingPhone">Phone Number</label>
+                    <input type="tel" id="bookingPhone"
+                           placeholder="Enter phone number" required>
                 </div>
 
+                <div class="form-group">
+                    <label for="travelDate">Travel Date</label>
+                    <input type="date" id="travelDate"
+                           name="travelDate" required
+                           min="2026-10-19">
+                </div>
+            </div>
 
-                <button type="submit" class="booking-btn">
-                    Confirm Booking
-                </button>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fromCity">From</label>
+                    <select id="fromCity" required>
+                        <option value="">Select departure city</option>
+                        <option value="Bengaluru">Bengaluru (BLR)</option>
+                        <option value="Delhi">Delhi (DEL)</option>
+                        <option value="Mumbai">Mumbai (BOM)</option>
+                        <option value="Goa">Goa (GOI)</option>
+                        <option value="Chennai">Chennai (MAA)</option>
+                        <option value="Hyderabad">Hyderabad (HYD)</option>
+                    </select>
+                </div>
 
-            </form>
+                <div class="form-group">
+                    <label for="toCity">To</label>
+                    <select id="toCity" required>
+                        <option value="">Select destination</option>
+                        <option value="Bengaluru">Bengaluru (BLR)</option>
+                        <option value="Delhi">Delhi (DEL)</option>
+                        <option value="Mumbai">Mumbai (BOM)</option>
+                        <option value="Goa">Goa (GOI)</option>
+                        <option value="Chennai">Chennai (MAA)</option>
+                        <option value="Hyderabad">Hyderabad (HYD)</option>
+                    </select>
+                </div>
+            </div>
 
-        </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="passengers">Number of Passengers</label>
+                    <select id="passengers" required>
+                        <option value="">Select passengers</option>
+                        <option value="1">1 Passenger</option>
+                        <option value="2">2 Passengers</option>
+                        <option value="3">3 Passengers</option>
+                        <option value="4">4 Passengers</option>
+                        <option value="5">5 Passengers</option>
+                    </select>
+                </div>
 
-    </section>
+                <div class="form-group">
+                    <label for="travelClass">Travel Class</label>
+                    <select id="travelClass" required>
+                        <option value="">Select class</option>
+                        <option value="Economy">Economy</option>
+                        <option value="Premium Economy">Premium Economy</option>
+                        <option value="Business">Business</option>
+                    </select>
+                </div>
+            </div>
 
+            <div class="form-group">
+                <label for="specialRequests">Special Requests</label>
+                <textarea id="specialRequests" rows="4"
+                          placeholder="Any special requests? (Optional)"></textarea>
+            </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2026 Aviation. All Rights Reserved.</p>
-    </footer>
+            <button type="submit" class="booking-btn">
+                Confirm Booking
+            </button>
 
+        </form>
+    </div>
+</section>
 
-    <!-- JavaScript -->
-   <script>
-    function bookFlight(event) {
+<footer>
+    <p>© 2026 Aviation. All Rights Reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("bookingForm");
+    const travelDateInput = document.getElementById("travelDate");
+
+    // Get today's date in YYYY-MM-DD format.
+    // This avoids browser locale/date-format problems.
+    function getLocalDateString() {
+        const now = new Date();
+
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const day = String(now.getDate()).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
+    }
+
+    // Prevent selecting dates before today.
+    travelDateInput.min = getLocalDateString();
+
+    // Validate the date and submit the form.
+    form.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const name = document.getElementById("passengerName").value.trim();
-        const email = document.getElementById("bookingEmail").value.trim();
-        const phone = document.getElementById("bookingPhone").value.trim();
-        const date = document.getElementById("travelDate").value;
-        const from = document.getElementById("fromCity").value;
-        const to = document.getElementById("toCity").value;
-        const passengers = document.getElementById("passengers").value;
-        const travelClass = document.getElementById("travelClass").value;
-        const specialRequests = document.getElementById("specialRequests").value.trim();
+        const selectedDate = travelDateInput.value;
+        const today = getLocalDateString();
+
+        if (!selectedDate) {
+            alert("Please select your travel date.");
+            return;
+        }
+
+        if (selectedDate < today) {
+            alert("Please select today or a future travel date.");
+            travelDateInput.value = "";
+            travelDateInput.min = getLocalDateString();
+            return;
+        }
+
+        bookFlight(event);
+    });
+
+});
+
+async function bookFlight(event) {
+
+    event.preventDefault();
+
+    try {
+
+        const name =
+            document.getElementById("passengerName").value.trim();
+
+        const email =
+            document.getElementById("bookingEmail").value.trim();
+
+        const phone =
+            document.getElementById("bookingPhone").value.trim();
+
+        const date =
+            document.getElementById("travelDate").value;
+
+        const from =
+            document.getElementById("fromCity").value;
+
+        const to =
+            document.getElementById("toCity").value;
+
+        const passengers =
+            Number(document.getElementById("passengers").value);
+
+        const travelClass =
+            document.getElementById("travelClass").value;
+
+        const specialRequests =
+            document.getElementById("specialRequests").value.trim();
+
+        // Validate travel date again before saving.
+        const now = new Date();
+        const today =
+            `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+
+        if (!date || date < today) {
+            alert("Please select today or a future travel date.");
+            return;
+        }
 
         if (from === to) {
             alert("Departure and destination cities cannot be the same.");
             return;
         }
 
-        if (new Date(date + "T00:00:00") <
-            new Date(new Date().toDateString())) {
-            alert("Please select today or a future travel date.");
+        if (!Number.isInteger(passengers) ||
+            passengers < 1 ||
+            passengers > 5) {
+            alert("Please select a valid number of passengers.");
             return;
         }
 
-        // Get existing bookings
-        let bookings = JSON.parse(
-            localStorage.getItem("aviationBookings") || "[]"
-        );
+        if (!window.aviationDB) {
+            alert("Supabase is not connected. Check js/supabase.js.");
+            return;
+        }
 
-        // Generate a unique demo booking ID
-        const bookingId = "AV" + Date.now();
+        // Check whether the user is logged in.
+        const { data: sessionData, error: sessionError } =
+            await window.aviationDB.auth.getSession();
 
-        // Create the booking
-        const booking = {
-            bookingId: bookingId,
-            passengerName: name,
-            email: email,
-            phone: phone,
-            travelDate: date,
-            fromCity: from,
-            toCity: to,
-            passengers: Number(passengers),
-            travelClass: travelClass,
-            specialRequests: specialRequests,
-            price: 4999,
-            status: "Confirmed"
-        };
+        if (sessionError) {
+            console.error("Session error:", sessionError);
+            alert("Unable to check login: " + sessionError.message);
+            return;
+        }
 
-        // Save the booking in browser storage
-        bookings.push(booking);
+        if (!sessionData.session) {
+            alert("Please log in before booking your flight.");
+            window.location.href = "login.html";
+            return;
+        }
 
-        localStorage.setItem(
-            "aviationBookings",
-            JSON.stringify(bookings)
-        );
+        const user = sessionData.session.user;
 
-        alert(
-            "Booking submitted successfully!" +
-            "\nYour Booking ID: " + bookingId
-        );
+        // First, search for a flight matching the selected date.
+        const { data: flights, error: flightError } =
+            await window.aviationDB
+                .from("flights")
+                .select("id, airline, departure, destination, departure_date, price")
+                .eq("departure", from)
+                .eq("destination", to)
+                .eq("departure_date", date)
+                .order("id", { ascending: true })
+                .limit(1);
 
-        // Open My Bookings
+        if (flightError) {
+            console.error("Flight search error:", flightError);
+            alert("Flight search failed: " + flightError.message);
+            return;
+        }
+
+        let flight = null;
+
+        if (flights && flights.length > 0) {
+
+            // Exact route and travel date found.
+            flight = flights[0];
+
+        } else {
+
+            // Demo fallback: find a sample fare for this route.
+            // This does NOT confirm a real flight on the selected date.
+            const { data: routeFlights, error: routeError } =
+                await window.aviationDB
+                    .from("flights")
+                    .select("id, airline, departure, destination, departure_date, price")
+                    .eq("departure", from)
+                    .eq("destination", to)
+                    .order("id", { ascending: true })
+                    .limit(1);
+
+            if (routeError) {
+                console.error("Route search error:", routeError);
+                alert("Unable to search this route: " + routeError.message);
+                return;
+            }
+
+            if (!routeFlights || routeFlights.length === 0) {
+                alert(
+                    "No sample fare is available for this route yet.\n\n" +
+                    "Please select another route."
+                );
+                return;
+            }
+
+            flight = routeFlights[0];
+        }
+
+        const totalPrice = Number(flight.price) * passengers;
+        const bookingReference = "AV" + Date.now();
+
+        if (!Number.isFinite(totalPrice) || totalPrice <= 0) {
+            alert("The flight price is invalid. Please contact support.");
+            return;
+        }
+
+        // Save booking details in Supabase.
+        const { data: booking, error: bookingError } =
+            await window.aviationDB
+                .from("bookings")
+                .insert({
+                    user_id: user.id,
+                    passenger_name: name,
+                    email: email,
+                    phone: phone,
+                    flight_id: flight.id,
+                    departure: from,
+                    destination: to,
+                    travel_date: date,
+                    passengers: passengers,
+                    total_price: totalPrice,
+                    travel_class: travelClass,
+                    special_requests: specialRequests || null,
+                    booking_reference: bookingReference,
+                    status: "Confirmed"
+                })
+                .select("id, booking_reference")
+                .single();
+
+        if (bookingError) {
+            console.error("Booking save error:", bookingError);
+            alert("Booking could not be saved: " + bookingError.message);
+            return;
+        }
+
+       alert(
+    "Booking saved successfully!\n\n" +
+    "Booking ID: " + booking.booking_reference + "\n" +
+    "Airline: " + flight.airline + "\n" +
+    "Route: " + from + " to " + to + "\n" +
+    "Selected travel date: " + date + "\n" +
+    "Passengers: " + passengers + "\n" +
+    "Total price: ₹" + totalPrice.toLocaleString("en-IN")
+);
+
+window.location.href = "my-bookings.html";
+
         window.location.href = "my-bookings.html";
+
+    } catch (error) {
+
+        console.error("Unexpected booking error:", error);
+        alert("Something went wrong: " + error.message);
+
     }
+}
 </script>
 
 </body>
