@@ -279,5 +279,87 @@ async function logoutUser() {
 
 document.addEventListener("DOMContentLoaded", updateAuthButtons);
 </script>
+    <!-- Premium Welcome Popup -->
+<div id="welcomePopup" class="premium-overlay">
+    <div class="premium-box">
+        <div class="premium-icon">✈️</div>
+        <h2>WELCOME TO AVIATION</h2>
+        <p class="gold-text">Experience the Luxury of Flying</p>
+        <p>Discover new destinations with Aviation.</p>
+        <button onclick="closeWelcome()">Explore Now</button>
+    </div>
+</div>
+
+<style>
+.premium-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.premium-box {
+    background: linear-gradient(135deg, #ffffff, #fff4d6);
+    width: 85%;
+    max-width: 380px;
+    padding: 35px 20px;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 0 35px rgba(255, 193, 7, 0.5);
+    animation: premiumAppear 0.5s ease;
+}
+
+.premium-icon {
+    font-size: 55px;
+}
+
+.premium-box h2 {
+    color: #9b7415;
+    letter-spacing: 2px;
+}
+
+.gold-text {
+    color: #b8860b;
+    font-weight: bold;
+}
+
+.premium-box button {
+    background: linear-gradient(90deg, #9b7415, #e8bd48);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 12px;
+}
+
+@keyframes premiumAppear {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+</style>
+
+<script>
+function closeWelcome() {
+    document.getElementById("welcomePopup").style.display = "none";
+}
+
+window.addEventListener("load", function () {
+    if (!sessionStorage.getItem("aviationWelcomeShown")) {
+        document.getElementById("welcomePopup").style.display = "flex";
+        sessionStorage.setItem("aviationWelcomeShown", "yes");
+    }
+});
+</script>
 </body>
 </html>
